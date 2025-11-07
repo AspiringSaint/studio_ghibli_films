@@ -1,10 +1,36 @@
 <script setup lang="ts">
 import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import type { Film } from '../types/Film';
+
+import FilmCard from '../components/FilmCard.vue';
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
 const films = ref<Film[]>([]);
+const loading = ref(false);
+const currentPage = ref(1);
+const itemsPerPage = 4;
+
+const totalPages = computed(() => {
+    return Math.ceil(films.value.length / itemsPerPage);
+})
+
+const paginatedFilms = computed(() => {
+    const start = (currentPage.value - 1) * itemsPerPage;
+    return films.value.slice(start, start + itemsPerPage);
+})
+
+function nextPage() {
+    if (currentPage.value < totalPages.value) {
+        currentPage.value++;
+    }
+}
+
+function prevPage() {
+    if (currentPage.value > 1) {
+        currentPage.value--;
+    }
+}
 
 onMounted(async () => {
     const result = await axios.get('https://ghibliapi.vercel.app/films');
@@ -19,25 +45,42 @@ onMounted(async () => {
         </div>
 
         <div class="cards-wrapper">
-            <div class="cards">
+            <div v-if="loading" class="cards">
 
             </div>
 
-            <div class="cards-selection">
+            <div v-else class="cards-selection">
                 <div class="cards">
-
+                    <FilmCard v-for="film in paginatedFilms" :key="film.id" :film="film" />
                 </div>
 
                 <div class="pagination">
-                    <button type="button" class="page-button">
+                    <button 
+                        type="button" 
+                        class="page-button"
+                        @click="prevPage"
+                        :disabled="currentPage === 1"
+                    >
                         <ChevronLeft class="page-icon" />
                     </button>
 
                     <div class="page-numbers">
-                        <button>1</button>
+                        <button 
+                            v-for="page in totalPages" 
+                            :key="page"
+                            :class="['page-number', { active: page === currentPage }]"
+                            @click="currentPage = page"
+                        >
+                            {{ page }}
+                        </button>
                     </div>
 
-                    <button type="button" class="page-button">
+                    <button 
+                        type="button" 
+                        class="page-button"
+                        @click="nextPage"
+                        :disabled="currentPage === totalPages"
+                    >
                         <ChevronRight class="page-icon" />
                     </button>
                 </div>
