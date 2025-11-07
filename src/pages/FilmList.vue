@@ -100,7 +100,18 @@ onMounted(async () => {
 }
 
 .title {
-    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.6rem;
+    color: #f5f5f5;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+    margin-left: 15px;
+}
+
+.title h1 {
+    font-size: 1.8rem;
     font-weight: 800;
 }
 
