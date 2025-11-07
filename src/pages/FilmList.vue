@@ -49,7 +49,7 @@ onMounted(async () => {
 
             </div>
 
-            <div v-else class="cards-selection">
+            <div v-else class="cards-section">
                 <div class="cards">
                     <FilmCard v-for="film in paginatedFilms" :key="film.id" :film="film" />
                 </div>
@@ -90,5 +90,98 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.film-list {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1280px;
+    margin: auto;
+    padding: 2rem 1rem;
+}
 
+.title {
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.cards-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.cards-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.page-button {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #41b883;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.page-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-button:hover:not(:disabled) {
+    background: #41b883;
+    transform: translateY(-1px);
+}
+
+.page-numbers {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.page-number {
+    width: 32px;
+    height: 32px;
+    outline: none;
+    border: none;
+    border-radius: 15%;
+    background: #2c2c2c;
+    color: #f5f5f5;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.page-number:hover {
+    background: #41b883;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.page-number.active {
+    background: #41b883;
+    color: white;
+    font-weight: 700;
+    border-color: #41b883;
+}
 </style>

@@ -31,5 +31,15 @@ const props = defineProps<{ film: Film }>();
 </template>
 
 <style scoped>
-
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 480px;
+  border: 1px solid #3a3a3a;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #2c2c2c;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 </style>
