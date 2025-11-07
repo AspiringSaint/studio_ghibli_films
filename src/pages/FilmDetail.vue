@@ -4,6 +4,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import type { Film } from '../types/Film';
 import MetaItem from '../components/MetaItem.vue';
+import FilmDetailSkeleton from '../components/FilmDetailSkeleton.vue';
 import {
     Calendar,
     ChevronLeft,
@@ -17,12 +18,16 @@ const route = useRoute();
 const router = useRouter();
 
 const film = ref<Film | null>(null);
+const loading = ref(true);
 
 onMounted(async () => {
 	const id = route.params.id as string;
 	const result = await axios.get(`https://ghibliapi.vercel.app/films/${id}`);
 
-	film.value = result.data;
+	setTimeout(() => {
+		film.value = result.data;
+		loading.value = false;
+	}, 300);
 
 });
 
@@ -67,6 +72,10 @@ function goBack() {
                 </div>
             </div>
         </div>
+
+            <div v-else>
+                <FilmDetailSkeleton />
+            </div>
     </div>
 </template>
 

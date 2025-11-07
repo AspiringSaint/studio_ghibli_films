@@ -10,9 +10,9 @@ const router = useRouter();
 const scoreColor = computed(() => {
   const score = Number(props.film.rt_score);
 
-  if (score >= 85) return 'score-green';   // Excellent
-  if (score >= 70) return 'score-orange';  // Good
-  return 'score-red';                      // Poor
+  if (score >= 85) return 'score-green';   
+  if (score >= 70) return 'score-orange';  
+  return 'score-red';                      
 });
 
 function goToDetail() {

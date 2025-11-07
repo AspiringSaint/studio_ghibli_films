@@ -4,10 +4,11 @@ import { ref, onMounted, computed } from 'vue';
 import type { Film } from '../types/Film';
 
 import FilmCard from '../components/FilmCard.vue';
+import FilmCardSkeleton from '../components/FilmCardSkeleton.vue';
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
 const films = ref<Film[]>([]);
-const loading = ref(false);
+const loading = ref(true);
 const currentPage = ref(1);
 const itemsPerPage = 4;
 
@@ -34,7 +35,11 @@ function prevPage() {
 
 onMounted(async () => {
     const result = await axios.get('https://ghibliapi.vercel.app/films');
-    films.value = result.data;
+
+    setTimeout(() => {
+		films.value = result.data;
+		loading.value = false;          // Simulate the skeleton
+	}, 300);
 })
 </script>
 
@@ -46,7 +51,7 @@ onMounted(async () => {
 
         <div class="cards-wrapper">
             <div v-if="loading" class="cards">
-
+                <FilmCardSkeleton v-for="n in 4" :key="n" />
             </div>
 
             <div v-else class="cards-section">
