@@ -10,3 +10,19 @@ body {
   font-family: 'Outfit', sans-serif;
   background: #242424;
 }
+
+/* Rating colors */
+.score-green {
+  color: #41b883;
+  font-weight: bold;
+}
+
+.score-orange {
+  color: #f97316;
+  font-weight: bold;
+}
+
+.score-red {
+  color: #ef4444;
+  font-weight: bold;
+}

@@ -2,6 +2,7 @@ export interface Film {
     id: string;
     title: string;
     original_title: string;
+    original_title_romanised: string;
     description: string;
     release_date: string;
     rt_score: string;

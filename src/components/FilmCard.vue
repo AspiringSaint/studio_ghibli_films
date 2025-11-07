@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import type { Film } from '../types/Film';
 import { Calendar, Star } from 'lucide-vue-next'
 
 const props = defineProps<{ film: Film }>();
+const router = useRouter();
 
 const scoreColor = computed(() => {
   const score = Number(props.film.rt_score);
@@ -12,10 +14,14 @@ const scoreColor = computed(() => {
   if (score >= 70) return 'score-orange';  // Good
   return 'score-red';                      // Poor
 });
+
+function goToDetail() {
+  router.push(`/film/${props.film.id}`)
+}
 </script>
 
 <template>
-  <div class="card">
+  <div class="card" @click="goToDetail">
     <div class="image-wrapper">
       <img :src="film.image" :alt="film.title">
     </div>
@@ -145,20 +151,5 @@ const scoreColor = computed(() => {
 
 .score {
   font-weight: 600;
-}
-
-.score-green {
-  color: #41b883; 
-  font-weight: bold;
-}
-
-.score-orange {
-  color: #f97316; 
-  font-weight: bold;
-}
-
-.score-red {
-  color: #ef4444;
-  font-weight: bold;
 }
 </style>

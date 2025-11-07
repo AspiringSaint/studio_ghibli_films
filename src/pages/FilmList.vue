@@ -147,13 +147,14 @@ onMounted(async () => {
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    background: #41b883;
+    background: #2c2c2c;
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.7rem;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .page-button:disabled {
